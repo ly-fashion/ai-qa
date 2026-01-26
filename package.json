@@ -1,0 +1,21 @@
+{
+  "name": "ai-qa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "preinstall": "npx only-allow pnpm",
+    "dev:wc": "pnpm --filter web-client dev"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0"
+}

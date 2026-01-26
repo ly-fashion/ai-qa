@@ -1,0 +1,10 @@
+# Apps specific node_modules
+apps/*/node_modules/
+apps/api-server/node_modules/
+apps/web-client/node_modules/
+
+# Packages node_modules
+packages/*/node_modules/
+
+# Node.js
+node_modules/
