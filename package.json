@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pnpm -r run dev",
     "build": "pnpm -r run build",
-    "preinstall": "npx only-allow pnpm",
     "dev:wc": "pnpm --filter web-client dev",
-    "dev:as": "pnpm --filter api-server start:dev"
+    "dev:as": "pnpm --filter api-server start:dev",
+    "preinstall": "npx only-allow pnpm && node -e \"const fs = require('fs'); const nvmrc = fs.readFileSync('.nvmrc', 'utf8').trim(); const current = process.version.slice(1); if (current !== nvmrc) { console.error('❌ Node版本错误: 需要 ' + nvmrc + ', 当前是 ' + current); console.error('💡 请运行: nvm use '+ nvmrc); process.exit(1); }\""
   },
   "keywords": [],
   "engines": {
