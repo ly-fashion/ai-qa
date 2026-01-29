@@ -8,7 +8,8 @@
     "dev": "pnpm -r run dev",
     "build": "pnpm -r run build",
     "preinstall": "npx only-allow pnpm",
-    "dev:wc": "pnpm --filter web-client dev"
+    "dev:wc": "pnpm --filter web-client dev",
+    "dev:as": "pnpm --filter api-server start:dev"
   },
   "keywords": [],
   "engines": {
