@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     // 引入 Tailwind CSS 样式文件
     '~/assets/css/main.css',
     // 引入 Ant Design Vue 的样式
-    // 'ant-design-vue/dist/reset.css'
+    'ant-design-vue/dist/reset.css'
   ],
   // 2. PostCSS 配置
   postcss: {
@@ -26,6 +26,7 @@ export default defineNuxtConfig({
   modules: [
     // 配置 Pinia
     // '@pinia/nuxt',
+    // '@ant-design-vue/nuxt'
   ],
   // 5. 配置运行时变量（例如，后端 API 的基础地址）
   runtimeConfig: {
