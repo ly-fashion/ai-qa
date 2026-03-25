@@ -3,11 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SystemModule } from './modules/system/system.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     CatsModule,
-
+    SystemModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'mysql', // 数据库类型
       host: '192.168.122.129',

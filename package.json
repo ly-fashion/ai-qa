@@ -9,6 +9,8 @@
     "build": "pnpm -r run build",
     "dev:wc": "pnpm --filter web-client dev",
     "dev:as": "pnpm --filter api-server start:dev",
+    "build:packages": "pnpm -r --filter \"@ai-qa/*\" build",
+    "build:apps": "pnpm -r --filter \"@ai-qa-apps/*\" build",
     "preinstall": "npx only-allow pnpm && node -e \"const fs = require('fs'); const nvmrc = fs.readFileSync('.nvmrc', 'utf8').trim(); const current = process.version.slice(1); if (current !== nvmrc) { console.error('❌ Node版本错误: 需要 ' + nvmrc + ', 当前是 ' + current); console.error('💡 请运行: nvm use '+ nvmrc); process.exit(1); }\""
   },
   "keywords": [],
@@ -18,5 +20,21 @@
   },
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "typeorm": "^0.3.28",
+    "mysql2": "^3.20.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "typeorm": "^0.3.28",
+      "mysql2": "^3.20.0",
+      "reflect-metadata": "^0.2.2"
+    }
+  }
 }

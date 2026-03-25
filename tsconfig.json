@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@/*": ["apps/api-server/src/*"],
+      "@app/*": ["apps/api-server/src/*"],
+      "@config/*": ["apps/api-server/src/config/*"],
+      "@modules/*": ["apps/api-server/src/modules/*"],
+      "@common/*": ["apps/api-server/src/common/*"],
+      "@database/*": ["packages/database/src/*"],
+      "@types/*": ["packages/types/src/*"],
+      "@utils/*": ["packages/utils/src/*"],
+      "@ui/*": ["packages/ui/src/*"],
+      "@api-server/*": ["apps/api-server/src/*"],
+      "@web-client/*": ["apps/web-client/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "build", "**/*.spec.ts", "**/*.test.ts"]
+}
