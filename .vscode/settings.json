@@ -1,6 +1,7 @@
 {
   "cSpell.enabled": true,
   "cSpell.config": "./cspell.json",
+  "prettier.configPath": ".prettierrc", // prettier路径,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
