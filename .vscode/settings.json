@@ -1,12 +1,26 @@
 {
-  "cSpell.words": [
-    "dtos",
-    "lucide",
-    "Nuxt"
-  ],
-  "prettier.bracketSpacing": false,
-  "editor.formatOnSave": false,
+  "cSpell.enabled": true,
+  "cSpell.config": "./cspell.json",
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  }
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.autoSave": "onFocusChange",
+  "eslint.useFlatConfig": true,
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true
 }

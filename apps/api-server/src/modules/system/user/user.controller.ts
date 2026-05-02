@@ -1,17 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-import { UserService } from './user.service';
+import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UpdateUserDto, UserResponseDto } from './dto';
+import { UserService } from './user.service';
 
 @ApiTags('用户管理')
 @Controller('users')
@@ -64,9 +64,7 @@ export class UserController {
     type: UserResponseDto,
   })
   @ApiResponse({ status: 404, description: '用户不存在' })
-  async findByUsername(
-    @Param('username') username: string,
-  ): Promise<UserResponseDto> {
+  async findByUsername(@Param('username') username: string): Promise<UserResponseDto> {
     return await this.userService.findByUsername(username);
   }
 

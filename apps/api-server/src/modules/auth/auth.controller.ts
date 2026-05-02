@@ -1,7 +1,7 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { UserService } from '../system/user/user.service';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, UserResponseDto } from '../system/user/dto';
+import { UserService } from '../system/user/user.service';
 import { LoginDto } from './dto';
 
 @ApiTags('认证管理')
@@ -42,9 +42,7 @@ export class AuthController {
     type: UserResponseDto,
   })
   @ApiResponse({ status: 409, description: '用户名或邮箱已存在' })
-  async register(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<UserResponseDto> {
+  async register(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
     return await this.userService.create(createUserDto);
   }
 }

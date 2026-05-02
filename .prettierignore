@@ -1,0 +1,9 @@
+node_modules
+dist
+.nuxt
+.output
+coverage
+.git
+*.log
+.DS_Store
+.changeset

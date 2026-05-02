@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { ChevronRight } from 'lucide-vue-next'
+import { ref } from 'vue'
 
 const personalizedRecommendation = ref(true)
 const showRelatedVideos = ref(true)
@@ -47,7 +47,7 @@ const accountItems = [
             <div class="flex items-center gap-4">
               <span class="text-sm text-gray-500 group-hover:text-gray-400">{{ item.value }}</span>
               <span v-if="item.action" class="text-sm text-gray-500 hover:text-white cursor-pointer">{{ item.action
-                }}</span>
+              }}</span>
               <ChevronRight v-if="item.arrow" class="w-4 h-4 text-gray-500" />
             </div>
           </div>

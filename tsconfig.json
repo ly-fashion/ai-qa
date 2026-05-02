@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
+    "strict": true,
+    "module": "NodeNext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
@@ -10,7 +11,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
+    "target": "ES2022",
     "sourceMap": true,
     "baseUrl": "./",
     "incremental": true,
@@ -21,6 +22,7 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@root/*": ["./*"],
       "@/*": ["apps/api-server/src/*"],
       "@app/*": ["apps/api-server/src/*"],
       "@config/*": ["apps/api-server/src/config/*"],
@@ -31,7 +33,7 @@
       "@utils/*": ["packages/utils/src/*"],
       "@ui/*": ["packages/ui/src/*"],
       "@api-server/*": ["apps/api-server/src/*"],
-      "@web-client/*": ["apps/web-client/src/*"]
+      "@web-client/*": ["apps/web-client/*"]
     }
   },
   "exclude": ["node_modules", "dist", "build", "**/*.spec.ts", "**/*.test.ts"]
