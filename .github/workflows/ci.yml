@@ -21,8 +21,7 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
+        # 注意：这里不指定version参数, 按照package.json中已经指定了固定版本
 
       - name: Get pnpm store directory
         id: pnpm-cache
