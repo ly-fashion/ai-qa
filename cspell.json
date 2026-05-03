@@ -15,7 +15,9 @@
     "**/node_modules/**",
     "**/.nuxt/**",
     "**/.output/**",
-    "**/coverage/**"
+    "**/coverage/**",
+    ".gitee/**",
+    ".github/**"
   ],
   "words": [
     "ai-qa",
@@ -37,6 +39,7 @@
     "esModuleInterop",
     "experimentalDecorators",
     "forceConsistentCasingInFileNames",
+    "gitee",
     "isolatedModules",
     "jest",
     "jsx",
