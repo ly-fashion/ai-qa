@@ -1,7 +1,13 @@
 // @ts-check
-import eslint from '@eslint/js'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import tseslint from 'typescript-eslint'
+import eslint from '@eslint/js';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import tseslint from 'typescript-eslint';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const rootDir = resolve(__dirname);
 
 const prettierConfig = {
   semi: true,
@@ -12,12 +18,28 @@ const prettierConfig = {
   tabWidth: 2,
   endOfLine: 'auto',
   arrowParens: 'always',
-  vueIndentScriptAndStyle: false
-}
+  vueIndentScriptAndStyle: false,
+};
 
 const baseConfig = tseslint.config(
   {
-    ignores: ['eslint.config.mjs', 'node_modules', 'dist', '.nuxt', '.output', '.output/**', '**/node_modules/**', '**/dist/**', '**/.nuxt/**', '**/.output/**', '**/coverage/**', '**/.git/**']
+    ignores: [
+      'eslint.config.mjs',
+      'node_modules',
+      'dist',
+      '.nuxt',
+      '.output',
+      '.output/**',
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/.nuxt/**',
+      '**/.output/**',
+      '**/coverage/**',
+      '**/.git/**',
+      '*.config.js',
+      '*.config.cjs',
+      'commitlint.config.js',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -25,9 +47,12 @@ const baseConfig = tseslint.config(
   {
     languageOptions: {
       parserOptions: {
-        projectService: true
-      }
-    }
+        projectService: {
+          allowDefaultProject: ['*.config.*', '*.config.js', '*.config.mjs'],
+        },
+        tsconfigRootDir: rootDir,
+      },
+    },
   },
   {
     rules: {
@@ -36,10 +61,10 @@ const baseConfig = tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': 'warn',
-      'prettier/prettier': ['error', prettierConfig]
-    }
-  }
-)
+      'prettier/prettier': ['error', prettierConfig],
+    },
+  },
+);
 
-export { prettierConfig }
-export default baseConfig
+export { prettierConfig };
+export default baseConfig;

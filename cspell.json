@@ -17,7 +17,8 @@
     "**/.output/**",
     "**/coverage/**",
     ".gitee/**",
-    ".github/**"
+    ".github/**",
+    ".husky/**"
   ],
   "words": [
     "ai-qa",

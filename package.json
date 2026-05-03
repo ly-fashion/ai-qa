@@ -1,7 +1,7 @@
 {
   "name": "ai-qa",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI QA 智能问答平台",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,7 +15,18 @@
     "lint:check": "eslint \"apps/**/*.{ts,vue,js,jsx,tsx}\" \"packages/**/*.{ts,js}\"",
     "format": "prettier --write \"apps/**/*.{ts,vue,js,jsx,tsx,json,css,scss}\" \"packages/**/*.{ts,js,json}\" \"*.{js,ts,json,md}\"",
     "format:check": "prettier --check \"apps/**/*.{ts,vue,js,jsx,tsx,json,css,scss}\" \"packages/**/*.{ts,js,json}\" \"*.{js,ts,json,md}\"",
-    "preinstall": "npx only-allow pnpm && node -e \"const fs = require('fs'); const nvmrc = fs.readFileSync('.nvmrc', 'utf8').trim(); const current = process.version.slice(1); if (current !== nvmrc) { console.error('❌ Node版本错误: 需要 ' + nvmrc + ', 当前是 ' + current); console.error('💡 请运行: nvm use '+ nvmrc); process.exit(1); }\""
+    "preinstall": "npx only-allow pnpm && node -e \"const fs = require('fs'); const nvmrc = fs.readFileSync('.nvmrc', 'utf8').trim(); const current = process.version.slice(1); if (current !== nvmrc) { console.error('❌ Node版本错误: 需要 ' + nvmrc + ', 当前是 ' + current); console.error('💡 请运行: nvm use '+ nvmrc); process.exit(1); }\"",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "engines": {
@@ -26,21 +37,25 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
+    "@commitlint/config-conventional": "^20.5.3",
     "@eslint/js": "^9.18.0",
     "@types/node": "^22.10.7",
+    "commitlint": "^20.5.3",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0",
     "vue-eslint-parser": "^9.4.3"
   },
   "dependencies": {
-    "typeorm": "^0.3.28",
     "mysql2": "^3.20.0",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.28"
   },
   "pnpm": {
     "overrides": {
