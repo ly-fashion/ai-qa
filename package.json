@@ -9,7 +9,7 @@
     "build": "pnpm -r run build",
     "dev:wc": "pnpm --filter web-client dev",
     "dev:as": "pnpm --filter api-server start:dev",
-    "build:packages": "pnpm -r --filter \"@ai-qa/*\" build",
+    "build:packages": "pnpm -r --filter \"@ai-qa-packages/*\" build",
     "build:apps": "pnpm -r --filter \"@ai-qa-apps/*\" build",
     "lint": "eslint \"apps/**/*.{ts,vue,js,jsx,tsx}\" \"packages/**/*.{ts,js}\" --fix",
     "lint:check": "eslint \"apps/**/*.{ts,vue,js,jsx,tsx}\" \"packages/**/*.{ts,js}\"",

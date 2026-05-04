@@ -1,6 +1,7 @@
 # TypeORM 模块解析问题解决方案
 
 ## 问题描述
+
 在 monorepo 架构中，TypeScript 无法识别到 TypeORM 模块，出现 "找不到模块"typeorm"或其相应的类型声明" 错误。
 
 ## 解决方案
@@ -76,11 +77,13 @@ import { DataSource } from '../../../node_modules/.pnpm/typeorm@0.3.28/node_modu
 ## 验证步骤
 
 1. **检查安装**：
+
    ```bash
    pnpm list typeorm
    ```
 
 2. **测试导入**：
+
    ```typescript
    import { DataSource } from 'typeorm';
    console.log('TypeORM imported successfully');
@@ -88,18 +91,21 @@ import { DataSource } from '../../../node_modules/.pnpm/typeorm@0.3.28/node_modu
 
 3. **构建测试**：
    ```bash
-   pnpm --filter @ai-qa/database build
+   pnpm --filter @ai-qa-packages/database build
    ```
 
 ## 常见问题
 
 ### Q: 为什么 pnpm 安装了但 TypeScript 找不到？
+
 A: pnpm 使用符号链接存储，TypeScript 需要时间来解析这些链接。重启 TS 服务通常能解决问题。
 
 ### Q: workspace 协议的依赖如何工作？
+
 A: `workspace:*` 告诉 pnpm 使用本地的包版本，而不是从 npm 下载。
 
 ### Q: 如何确认依赖版本一致？
+
 A: 检查 `pnpm-lock.yaml` 文件，确保所有包使用相同版本的 TypeORM。
 
 ## 最佳实践
@@ -112,15 +118,18 @@ A: 检查 `pnpm-lock.yaml` 文件，确保所有包使用相同版本的 TypeORM
 ## 当前项目状态
 
 ✅ **已配置**：
+
 - TypeORM 在根目录 `package.json` 中
 - 子包使用 `workspace:*` 协议
 - TypeScript 配置继承
 
 ✅ **依赖已安装**：
+
 - typeorm@0.3.28
-- mysql2@3.20.0  
+- mysql2@3.20.0
 - reflect-metadata@0.2.2
 - @types/node@22.19.3
 
 ⚠️ **需要操作**：
+
 - 重启 TypeScript 服务或重新加载 VSCode

@@ -68,7 +68,7 @@ importers:
 
   apps/api-server:
     dependencies:
-      '@ai-qa/database':
+      '@ai-qa-packages/database':
         specifier: workspace:*
         version: link:../../packages/database
       '@nestjs/common':

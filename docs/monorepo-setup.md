@@ -1,6 +1,7 @@
 # Monorepo 跨项目引用配置
 
 ## 项目结构
+
 ```
 ai-qa/
 ├── apps/
@@ -17,6 +18,7 @@ ai-qa/
 ## 路径别名配置
 
 ### 1. 根目录 tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -33,6 +35,7 @@ ai-qa/
 ```
 
 ### 2. 各项目继承根配置
+
 ```json
 // apps/api-server/tsconfig.json
 {
@@ -48,19 +51,21 @@ ai-qa/
 ### 在 API Server 中引用 Database 包
 
 #### 1. 添加依赖
+
 ```json
 // apps/api-server/package.json
 {
   "dependencies": {
-    "@ai-qa/database": "workspace:*"
+    "@ai-qa-packages/database": "workspace:*"
   }
 }
 ```
 
 #### 2. 使用路径别名
+
 ```typescript
 // apps/api-server/src/main.ts
-import { DB } from '@ai-qa/database';
+import { DB } from '@ai-qa-packages/database';
 // 或者使用路径别名
 import { DB } from '@database/index';
 ```
@@ -68,6 +73,7 @@ import { DB } from '@database/index';
 ### 在 Web Client 中引用 Types 包
 
 #### 1. 添加依赖
+
 ```json
 // apps/web-client/package.json
 {
@@ -78,6 +84,7 @@ import { DB } from '@database/index';
 ```
 
 #### 2. 使用类型
+
 ```typescript
 // apps/web-client/src/types/user.ts
 import { User } from '@ai-qa/types';
@@ -88,6 +95,7 @@ import { User } from '@types/user';
 ## 安装依赖
 
 在项目根目录运行：
+
 ```bash
 pnpm install
 ```
@@ -96,6 +104,7 @@ pnpm install
 
 1. 先构建 packages
 2. 再构建 apps
+
 ```bash
 pnpm run build:packages
 pnpm run build:apps
@@ -111,6 +120,7 @@ pnpm run build:apps
 ## 示例引用
 
 ### Database 包示例
+
 ```typescript
 // packages/database/src/index.ts
 export class DatabaseConnection {
@@ -118,10 +128,11 @@ export class DatabaseConnection {
 }
 
 // apps/api-server/src/main.ts
-import { DatabaseConnection } from '@ai-qa/database';
+import { DatabaseConnection } from '@ai-qa-packages/database';
 ```
 
 ### Types 包示例
+
 ```typescript
 // packages/types/src/user.ts
 export interface User {
@@ -134,6 +145,7 @@ import { User } from '@ai-qa/types';
 ```
 
 ### Utils 包示例
+
 ```typescript
 // packages/utils/src/format.ts
 export function formatDate(date: Date): string {

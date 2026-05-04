@@ -1,5 +1,5 @@
 {
-  "name": "@ai-qa/database",
+  "name": "@ai-qa-packages/database",
   "version": "1.0.0",
   "description": "Database package for AI QA system",
   "main": "dist/index.js",

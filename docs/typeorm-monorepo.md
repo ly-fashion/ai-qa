@@ -3,9 +3,11 @@
 ## 🎯 核心原则
 
 ### 1. 依赖提升 (Dependency Hoisting)
+
 将共享依赖提升到根目录，避免版本冲突和重复安装。
 
 ### 2. Workspace 协议
+
 使用 `workspace:*` 确保所有子包使用相同版本的依赖。
 
 ## 📁 项目结构
@@ -26,6 +28,7 @@ ai-qa/
 ## 📦 依赖配置
 
 ### 根目录 package.json
+
 ```json
 {
   "dependencies": {
@@ -41,6 +44,7 @@ ai-qa/
 ```
 
 ### 子包 package.json
+
 ```json
 // packages/database/package.json
 {
@@ -51,13 +55,13 @@ ai-qa/
   }
 }
 
-// apps/api-server/package.json  
+// apps/api-server/package.json
 {
   "dependencies": {
     "@nestjs/typeorm": "^11.0.0",
     "typeorm": "workspace:*",
     "mysql2": "workspace:*",
-    "@ai-qa/database": "workspace:*"
+    "@ai-qa-packages/database": "workspace:*"
   }
 }
 ```
@@ -65,7 +69,9 @@ ai-qa/
 ## 🏗️ 架构模式
 
 ### 1. 数据库包 (packages/database)
+
 负责：
+
 - 数据库连接管理
 - 基础实体定义
 - 数据库配置
@@ -98,14 +104,16 @@ export class DatabaseConnection {
 ```
 
 ### 2. API Server (apps/api-server)
+
 负责：
+
 - 业务逻辑实现
 - API 接口定义
 - 使用数据库包
 
 ```typescript
 // apps/api-server/src/main.ts
-import { DatabaseConnection } from '@ai-qa/database';
+import { DatabaseConnection } from '@ai-qa-packages/database';
 
 async function bootstrap() {
   await DatabaseConnection.connect();
@@ -116,11 +124,13 @@ async function bootstrap() {
 ## 🚀 构建和开发
 
 ### 安装依赖
+
 ```bash
 pnpm install
 ```
 
 ### 开发模式
+
 ```bash
 # 同时启动所有服务
 pnpm dev
@@ -133,6 +143,7 @@ pnpm dev:wc
 ```
 
 ### 构建顺序
+
 ```bash
 # 1. 先构建 packages
 pnpm build:packages
@@ -183,12 +194,14 @@ pnpm build
 ### 常见问题
 
 1. **模块找不到**
+
    ```bash
    # 重新安装依赖
    pnpm install --force
    ```
 
 2. **类型错误**
+
    ```bash
    # 重新构建 types 包
    pnpm --filter @ai-qa/types build
