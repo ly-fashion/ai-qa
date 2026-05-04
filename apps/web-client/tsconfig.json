@@ -1,6 +1,10 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
+  // 继承根 tsconfig.json 的所有配置（路径别名、编译选项等）
+  "extends": "../../tsconfig.json",
+  // 显式指定要包含的文件。空数组表示"不直接指定文件"，由 references 决定
   "files": [],
+  // 引用 Nuxt 配置文件
   "references": [
     {
       "path": "./.nuxt/tsconfig.app.json"

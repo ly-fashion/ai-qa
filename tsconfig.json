@@ -36,5 +36,5 @@
       "@web-client/*": ["apps/web-client/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "build", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["node_modules", "dist", "build"]
 }

@@ -45,10 +45,38 @@ const baseConfig = tseslint.config(
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettierRecommended,
   {
+    files: ['**/*.spec.ts', '**/*.test.ts', '**/*.e2e-spec.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+        require: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+  },
+  {
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['*.config.*', '*.config.js', '*.config.mjs'],
+          allowDefaultProject: [
+            '*.config.*',
+            '*.config.js',
+            '*.config.mjs',
+            '*.spec.ts',
+            '*.test.ts',
+            'scripts/*.js',
+            // '*.e2e-spec.ts',
+          ],
         },
         tsconfigRootDir: rootDir,
       },

@@ -17,25 +17,8 @@
     "format:check": "prettier --check \"apps/**/*.{ts,vue,js,jsx,tsx,json,css,scss}\" \"packages/**/*.{ts,js,json}\" \"*.{js,ts,json,md}\"",
     "preinstall": "npx only-allow pnpm && node -e \"const fs = require('fs'); const nvmrc = fs.readFileSync('.nvmrc', 'utf8').trim(); const current = process.version.slice(1); if (current !== nvmrc) { console.error('❌ Node版本错误: 需要 ' + nvmrc + ', 当前是 ' + current); console.error('💡 请运行: nvm use '+ nvmrc); process.exit(1); }\"",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "tsc --noEmit --skipLibCheck",
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{vue}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,css,scss,md}": [
-      "prettier --write"
-    ]
+    "lint-staged": "lint-staged",
+    "tsc-check": "node scripts/tsc-check.js"
   },
   "keywords": [],
   "engines": {
