@@ -1,5 +1,5 @@
 # .github/workflows/deploy-to-gitee.yml
-name: CD
+name: Deploy to Gitee Pages
 
 on:
   push:

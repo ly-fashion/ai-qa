@@ -54,24 +54,38 @@ jobs:
         with:
           # 从项目根目录的 .nvmrc 文件读取 Node.js 版本
           node-version-file: '.nvmrc'
-          # 启用 pnpm 缓存以加快安装速度
-          cache: 'pnpm'
 
       # 3. 安装 pnpm 包管理器
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      # 4. 安装项目依赖 - 使用 --frozen-lockfile 确保依赖版本锁定
+      # 4. 获取 pnpm store 目录并设置缓存
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+      # 5. 设置 pnpm 缓存以加快后续安装速度
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # 6. 安装项目依赖 - 使用 --frozen-lockfile 确保依赖版本锁定
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 5. 构建所有应用（前后端都构建）
+      # 7. 构建所有应用（前后端都构建）
       - name: Build applications
         run: |
           pnpm build:packages
           pnpm build:apps
 
-      # 6. 验证构建输出是否存在
+      # 8. 验证构建输出是否存在
       - name: Verify build output
         run: |
           echo "检查 API Server 构建产物..."
@@ -90,18 +104,11 @@ jobs:
             exit 1
           fi
 
-      # 7. 配置 GitHub Pages - 设置部署目标
+      # 9. 配置 GitHub Pages - 设置部署目标
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        with:
-          # 启用 GitHub Pages（如果尚未启用）
-          enablement: true
-          # 部署类型：静态站点
-          build_type: 'static'
-          # 静态站点生成器：设置为空，使用 Nuxt 的输出
-          # GitHub Pages 会直接服务 .output/public 目录
 
-      # 8. 验证 Web Client 输出目录结构
+      # 10. 验证 Web Client 输出目录结构
       - name: Validate the Nuxt output exists
         run: |
           if [ -d "apps/web-client/.output/public" ]; then
@@ -112,7 +119,7 @@ jobs:
             ls -la apps/web-client/.output/
           fi
 
-      # 9. 上传构建产物作为 GitHub Pages artifact
+      # 11. 上传构建产物作为 GitHub Pages artifact
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -121,7 +128,7 @@ jobs:
           # artifact 的名称，用于后续部署步骤引用
           name: github-pages
 
-      # 10. 部署到 GitHub Pages
+      # 12. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
