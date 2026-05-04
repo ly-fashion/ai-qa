@@ -16,13 +16,9 @@
         layout="vertical"
       >
         <a-form-item label="用户名" name="username">
-          <a-input
-            v-model:value="loginForm.username"
-            placeholder="请输入用户名"
-            size="large"
-          />
+          <a-input v-model:value="loginForm.username" placeholder="请输入用户名" size="large" />
         </a-form-item>
-        
+
         <a-form-item label="密码" name="password">
           <a-input-password
             v-model:value="loginForm.password"
@@ -30,15 +26,9 @@
             size="large"
           />
         </a-form-item>
-        
+
         <a-form-item>
-          <a-button
-            type="primary"
-            html-type="submit"
-            size="large"
-            block
-            :loading="loading"
-          >
+          <a-button type="primary" html-type="submit" size="large" block :loading="loading">
             登录
           </a-button>
         </a-form-item>
@@ -59,15 +49,11 @@
             size="large"
           />
         </a-form-item>
-        
+
         <a-form-item label="邮箱" name="email">
-          <a-input
-            v-model:value="registerForm.email"
-            placeholder="请输入邮箱"
-            size="large"
-          />
+          <a-input v-model:value="registerForm.email" placeholder="请输入邮箱" size="large" />
         </a-form-item>
-        
+
         <a-form-item label="密码" name="password">
           <a-input-password
             v-model:value="registerForm.password"
@@ -75,7 +61,7 @@
             size="large"
           />
         </a-form-item>
-        
+
         <a-form-item label="确认密码" name="confirmPassword">
           <a-input-password
             v-model:value="registerForm.confirmPassword"
@@ -83,31 +69,17 @@
             size="large"
           />
         </a-form-item>
-        
+
         <a-form-item label="名字（可选）" name="firstName">
-          <a-input
-            v-model:value="registerForm.firstName"
-            placeholder="请输入名字"
-            size="large"
-          />
+          <a-input v-model:value="registerForm.firstName" placeholder="请输入名字" size="large" />
         </a-form-item>
-        
+
         <a-form-item label="姓氏（可选）" name="lastName">
-          <a-input
-            v-model:value="registerForm.lastName"
-            placeholder="请输入姓氏"
-            size="large"
-          />
+          <a-input v-model:value="registerForm.lastName" placeholder="请输入姓氏" size="large" />
         </a-form-item>
-        
+
         <a-form-item>
-          <a-button
-            type="primary"
-            html-type="submit"
-            size="large"
-            block
-            :loading="loading"
-          >
+          <a-button type="primary" html-type="submit" size="large" block :loading="loading">
             注册
           </a-button>
         </a-form-item>
@@ -124,63 +96,63 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
-import { message } from 'ant-design-vue'
-import type { Rule } from 'ant-design-vue/es/form'
+import { ref, reactive, watch } from 'vue';
+import { message } from 'ant-design-vue';
+import type { Rule } from 'ant-design-vue/es/form';
 
 // Props
 interface Props {
-  open: boolean
+  open: boolean;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 // Emits
 const emit = defineEmits<{
-  'update:open': [value: boolean]
-  login: [user: User]
-  register: [user: User]
-}>()
+  'update:open': [value: boolean];
+  login: [user: User];
+  register: [user: User];
+}>();
 
 // Types
 interface User {
-  id: number
-  username: string
-  email: string
-  firstName?: string
-  lastName?: string
-  phone?: string
-  isActive: boolean
-  role: string
-  lastLoginAt?: Date
-  createdAt: Date
-  updatedAt: Date
+  id: number;
+  username: string;
+  email: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  isActive: boolean;
+  role: string;
+  lastLoginAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface LoginForm {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }
 
 interface RegisterForm {
-  username: string
-  email: string
-  password: string
-  confirmPassword: string
-  firstName?: string
-  lastName?: string
-  phone?: string
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
 }
 
 // Reactive data
-const visible = ref(props.open)
-const loading = ref(false)
-const currentMode = ref<'login' | 'register'>('login')
+const visible = ref(props.open);
+const loading = ref(false);
+const currentMode = ref<'login' | 'register'>('login');
 
 const loginForm = reactive<LoginForm>({
   username: '',
-  password: ''
-})
+  password: '',
+});
 
 const registerForm = reactive<RegisterForm>({
   username: '',
@@ -189,139 +161,132 @@ const registerForm = reactive<RegisterForm>({
   confirmPassword: '',
   firstName: '',
   lastName: '',
-  phone: ''
-})
+  phone: '',
+});
 
 // Form validation rules
 const loginRules: Record<string, Rule[]> = {
-  username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' }
-  ],
-  password: [
-    { required: true, message: '请输入密码', trigger: 'blur' }
-  ]
-}
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+};
 
 const registerRules: Record<string, Rule[]> = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 3, max: 50, message: '用户名长度为3-50个字符', trigger: 'blur' }
+    { min: 3, max: 50, message: '用户名长度为3-50个字符', trigger: 'blur' },
   ],
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+    { type: 'email', message: '邮箱格式不正确', trigger: 'blur' },
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 255, message: '密码长度为6-255个字符', trigger: 'blur' }
+    { min: 6, max: 255, message: '密码长度为6-255个字符', trigger: 'blur' },
   ],
   confirmPassword: [
     { required: true, message: '请确认密码', trigger: 'blur' },
     {
       validator: (_rule: any, value: string) => {
         if (value !== registerForm.password) {
-          return Promise.reject('两次输入的密码不一致')
+          return Promise.reject('两次输入的密码不一致');
         }
-        return Promise.resolve()
+        return Promise.resolve();
       },
-      trigger: 'blur'
-    }
+      trigger: 'blur',
+    },
   ],
-  firstName: [
-    { max: 100, message: '名字不能超过100个字符', trigger: 'blur' }
-  ],
-  lastName: [
-    { max: 100, message: '姓氏不能超过100个字符', trigger: 'blur' }
-  ],
-  phone: [
-    { max: 20, message: '电话号码不能超过20个字符', trigger: 'blur' }
-  ]
-}
+  firstName: [{ max: 100, message: '名字不能超过100个字符', trigger: 'blur' }],
+  lastName: [{ max: 100, message: '姓氏不能超过100个字符', trigger: 'blur' }],
+  phone: [{ max: 20, message: '电话号码不能超过20个字符', trigger: 'blur' }],
+};
 
 // API base URL
-const API_BASE_URL = 'http://localhost:3000'
+const API_BASE_URL = 'http://localhost:3000';
 
 // Methods
 const handleCancel = () => {
-  visible.value = false
-  emit('update:open', false)
-}
+  visible.value = false;
+  emit('update:open', false);
+};
 
 const toggleMode = () => {
-  currentMode.value = currentMode.value === 'login' ? 'register' : 'login'
+  currentMode.value = currentMode.value === 'login' ? 'register' : 'login';
   // Reset forms
-  Object.assign(loginForm, { username: '', password: '' })
-  Object.assign(registerForm, { 
-    username: '', 
-    email: '', 
-    password: '', 
-    confirmPassword: '', 
-    firstName: '', 
-    lastName: '', 
-    phone: '' 
-  })
-}
+  Object.assign(loginForm, { username: '', password: '' });
+  Object.assign(registerForm, {
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+  });
+};
 
 const handleLogin = async () => {
-  loading.value = true
+  loading.value = true;
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(loginForm)
-    })
-    
+      body: JSON.stringify(loginForm),
+    });
+
     if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.message || '登录失败')
+      const error = await response.json();
+      throw new Error(error.message || '登录失败');
     }
-    
-    const user: User = await response.json()
-    message.success('登录成功')
-    emit('login', user)
-    handleCancel()
+
+    const user: User = await response.json();
+    message.success('登录成功');
+    emit('login', user);
+    handleCancel();
   } catch (error: any) {
-    message.error(error.message || '登录失败')
+    message.error(error.message || '登录失败');
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 const handleRegister = async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    const { confirmPassword, ...userData } = registerForm
-    
+    const { confirmPassword, ...userData } = registerForm;
+
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData)
-    })
-    
+      body: JSON.stringify(userData),
+    });
+
     if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.message || '注册失败')
+      const error = await response.json();
+      throw new Error(error.message || '注册失败');
     }
-    
-    const user: User = await response.json()
-    message.success('注册成功')
-    emit('register', user)
-    handleCancel()
+
+    const user: User = await response.json();
+    message.success('注册成功');
+    emit('register', user);
+    handleCancel();
   } catch (error: any) {
-    message.error(error.message || '注册失败')
+    message.error(error.message || '注册失败');
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 
 // Watch for prop changes
-watch(() => props.open, (newVal) => {
-  visible.value = newVal
-})
+watch(
+  () => props.open,
+  (newVal) => {
+    visible.value = newVal;
+  },
+);
 </script>
 
 <style scoped>

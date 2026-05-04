@@ -1,1 +1,24 @@
+#!/bin/sh
+# Pre-commit hook: 自动修复格式问题，然后执行 lint-staged
+
+echo "🔍 Checking code format..."
+format_output=$(pnpm format:check 2>&1)
+format_exit_code=$?
+
+if [ $format_exit_code -ne 0 ]; then
+  echo "📝 Found formatting issues. Auto-fixing with Prettier..."
+  pnpm format
+
+  echo ""
+  echo "⚠️  After auto-fix, following files still have formatting issues:"
+  pnpm format:check
+  echo ""
+  echo "❌ Please review and manually fix the remaining files above."
+  echo "💡 If the issues are in generated files or dependencies, consider adding them to .prettierignore"
+  exit 1
+fi
+
+echo "✅ Code format check passed!"
+echo ""
+echo "🚀 Running lint-staged..."
 pnpm run lint-staged

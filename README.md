@@ -17,6 +17,7 @@ AI-QA 是一个使用 Monorepo 架构的全栈应用，集成了前端 Web 客�
 ## 🏗️ 技术架构
 
 ### 整体架构
+
 ```
 ai-qa/
 ├── apps/                    # 应用程序
@@ -33,6 +34,7 @@ ai-qa/
 ### 技术栈
 
 #### 后端 (api-server)
+
 - **框架**: NestJS 11.x
 - **运行时**: Node.js 22.17.1
 - **语言**: TypeScript 5.7.3
@@ -41,6 +43,7 @@ ai-qa/
 - **包管理**: pnpm 10.14.0
 
 #### 前端 (web-client)
+
 - **框架**: Nuxt.js 4.3.0
 - **UI 库**: Ant Design Vue 4.2.6
 - **样式**: Tailwind CSS 4.1.18
@@ -49,6 +52,7 @@ ai-qa/
 - **语言**: Vue 3.5.27 + TypeScript
 
 #### 开发工具
+
 - **包管理器**: pnpm (Workspace)
 - **版本控制**: Git
 - **代码格式化**: Prettier
@@ -79,12 +83,14 @@ pnpm install
 ### 开发模式
 
 #### 启动所有服务
+
 ```bash
 # 同时启动前后端服务
 pnpm dev
 ```
 
 #### 单独启动服务
+
 ```bash
 # 仅启动前端 (http://localhost:3000)
 pnpm dev:wc
@@ -119,6 +125,7 @@ apps/api-server/
 ```
 
 **主要特性**:
+
 - RESTful API 设计
 - 模块化架构
 - 依赖注入系统
@@ -149,6 +156,7 @@ apps/web-client/
 ```
 
 **主要特性**:
+
 - 服务端渲染 (SSR)
 - 响应式设计
 - 组件化开发
@@ -186,6 +194,7 @@ cd apps/api-server && pnpm lint
 ### 测试
 
 #### 后端测试
+
 ```bash
 # 单元测试
 cd apps/api-server && pnpm test
@@ -198,11 +207,13 @@ cd apps/api-server && pnpm test:e2e
 ```
 
 #### 前端测试
+
 前端测试配置待完善，可集成 Vitest 或 Jest。
 
 ### 环境配置
 
 #### 后端环境变量
+
 ```bash
 # apps/api-server/.env
 PORT=9000
@@ -210,6 +221,7 @@ NODE_ENV=development
 ```
 
 #### 前端环境变量
+
 ```bash
 # apps/web-client/.env
 NUXT_PUBLIC_API_BASE=http://localhost:9000/api
@@ -220,6 +232,7 @@ NUXT_PUBLIC_API_BASE=http://localhost:9000/api
 ### 后端 API
 
 #### 基础信息
+
 - **Base URL**: `http://localhost:9000`
 - **Content-Type**: `application/json`
 
@@ -257,7 +270,7 @@ GET /api/files
 ### 响应式设计
 
 - **移动端**: < 768px
-- **平板端**: 768px - 1024px  
+- **平板端**: 768px - 1024px
 - **桌面端**: > 1024px
 
 ## 🔧 配置说明
@@ -267,7 +280,7 @@ GET /api/files
 ```yaml
 # pnpm-workspace.yaml
 packages:
-  - 'apps/*'     # 应用程序
+  - 'apps/*' # 应用程序
   - 'packages/*' # 共享包
 ```
 
@@ -291,6 +304,7 @@ pnpm dev
 ```
 
 访问地址：
+
 - 前端: http://localhost:3000
 - 后端: http://localhost:9000
 
@@ -358,6 +372,7 @@ chore: 构建过程或辅助工具的变动
 ### 常见问题
 
 #### Node 版本不匹配
+
 ```bash
 # 错误信息
 ❌ Node版本错误: 需要 22.17.1, 当前是 xx.x.x
@@ -369,6 +384,7 @@ pnpm install
 ```
 
 #### 端口冲突
+
 ```bash
 # 修改端口配置
 # 后端: apps/api-server/src/main.ts
@@ -376,6 +392,7 @@ pnpm install
 ```
 
 #### 依赖安装失败
+
 ```bash
 # 清理缓存重新安装
 pnpm store prune
@@ -393,6 +410,7 @@ pnpm install
 ## 🔮 未来规划
 
 ### 短期目标 (1-2 个月)
+
 - [ ] 完善 API 接口设计
 - [ ] 集成数据库 (PostgreSQL/MongoDB)
 - [ ] 添加用户认证系统
@@ -400,6 +418,7 @@ pnpm install
 - [ ] 完善测试覆盖
 
 ### 中期目标 (3-6 个月)
+
 - [ ] 集成 AI 模型 API
 - [ ] 实现实时通信 (WebSocket)
 - [ ] 添加缓存机制
@@ -407,6 +426,7 @@ pnpm install
 - [ ] 国际化支持
 
 ### 长期目标 (6-12 个月)
+
 - [ ] 微服务架构改造
 - [ ] 容器化部署
 - [ ] CI/CD 流水线
