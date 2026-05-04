@@ -1,11 +1,11 @@
 # GitHub Actions CD 工作流程文件
 # 触发条件：push 到 main 或 develop 分支时自动执行，也可手动触发
-name: Deploy to GitHub Pages
+name: CD
 
 on:
   # 当 push 到 main 或 develop 分支时触发
   push:
-    branches: [main, develop]
+    branches: [master, develop]
   # 允许手动触发部署（通过 GitHub Actions 页面操作）
   workflow_dispatch:
 
