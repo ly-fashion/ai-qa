@@ -39,13 +39,6 @@ jobs:
       # 需要 ID token 来进行身份验证
       id-token: write
 
-    # 部署环境配置
-    environment:
-      # 部署到 GitHub Pages
-      name: github-pages
-      # 部署的 URL（在后面步骤中设置）
-      url: ${{ steps.deploy.outputs.page_url }}
-
     # 步骤
     steps:
       # 1. 检出代码 - 拉取当前仓库的代码
@@ -135,13 +128,5 @@ jobs:
         with:
           # 指定要部署的 artifact 名称
           artifact_name: github-pages
-          # 部署目标：使用 GitHub Pages 的 default 环境
-          environment: github-pages
-          # 错误时长阈值（秒），超过则视为失败
-          error_count: 5
-          # 轮询间隔（秒）
-          polling_interval: 5
-          # 最大轮询次数
-          maximum_corner_runtime: 30
           # 部署超时时间（分钟）
           timeout: 15
