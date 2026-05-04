@@ -1,0 +1,136 @@
+# GitHub Actions CD 工作流程文件
+# 触发条件：push 到 main 或 develop 分支时自动执行，也可手动触发
+name: Deploy to GitHub Pages
+
+on:
+  # 当 push 到 main 或 develop 分支时触发
+  push:
+    branches: [main, develop]
+  # 允许手动触发部署（通过 GitHub Actions 页面操作）
+  workflow_dispatch:
+
+# 设置环境变量
+env:
+  # 设置 Node.js 环境为生产环境
+  NODE_ENV: production
+
+jobs:
+  # 部署任务
+  deploy:
+    # 指定运行在最新的 Ubuntu 系统上
+    runs-on: ubuntu-latest
+    # 设置 GitHub Pages 所需的权限
+    permissions:
+      # 需要写入权限来部署到 GitHub Pages
+      pages: write
+      # 需要读取仓库内容的权限
+      contents: read
+      # 需要 ID token 来进行身份验证
+      id-token: write
+
+    # 部署环境配置
+    environment:
+      # 部署到 GitHub Pages
+      name: github-pages
+      # 部署的 URL（在后面步骤中设置）
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    # 步骤
+    steps:
+      # 1. 检出代码 - 拉取当前仓库的代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 只检出最新提交，不保留完整历史（适用于部署）
+          fetch-depth: 0
+
+      # 2. 设置 Node.js 环境 - 使用 .nvmrc 文件指定的版本
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # 从项目根目录的 .nvmrc 文件读取 Node.js 版本
+          node-version-file: '.nvmrc'
+          # 启用 pnpm 缓存以加快安装速度
+          cache: 'pnpm'
+
+      # 3. 安装 pnpm 包管理器
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      # 4. 安装项目依赖 - 使用 --frozen-lockfile 确保依赖版本锁定
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 5. 构建所有应用（前后端都构建）
+      - name: Build applications
+        run: |
+          pnpm build:packages
+          pnpm build:apps
+
+      # 6. 验证构建输出是否存在
+      - name: Verify build output
+        run: |
+          echo "检查 API Server 构建产物..."
+          if [ -d "apps/api-server/dist" ]; then
+            echo "✅ API Server 构建成功"
+          else
+            echo "❌ API Server 构建失败"
+            exit 1
+          fi
+
+          echo "检查 Web Client 构建产物..."
+          if [ -d "apps/web-client/.output" ]; then
+            echo "✅ Web Client 构建成功"
+          else
+            echo "❌ Web Client 构建失败"
+            exit 1
+          fi
+
+      # 7. 配置 GitHub Pages - 设置部署目标
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          # 启用 GitHub Pages（如果尚未启用）
+          enablement: true
+          # 部署类型：静态站点
+          build_type: 'static'
+          # 静态站点生成器：设置为空，使用 Nuxt 的输出
+          # GitHub Pages 会直接服务 .output/public 目录
+
+      # 8. 验证 Web Client 输出目录结构
+      - name: Validate the Nuxt output exists
+        run: |
+          if [ -d "apps/web-client/.output/public" ]; then
+            echo "✅ Nuxt 静态输出目录存在"
+            ls -la apps/web-client/.output/public/
+          else
+            echo "⚠️  Nuxt 静态输出目录不存在，尝试检查其他位置..."
+            ls -la apps/web-client/.output/
+          fi
+
+      # 9. 上传构建产物作为 GitHub Pages artifact
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传 Web Client 的 Nuxt 静态输出目录
+          path: 'apps/web-client/.output/public'
+          # artifact 的名称，用于后续部署步骤引用
+          name: github-pages
+
+      # 10. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
+        with:
+          # 指定要部署的 artifact 名称
+          artifact_name: github-pages
+          # 部署目标：使用 GitHub Pages 的 default 环境
+          environment: github-pages
+          # 错误时长阈值（秒），超过则视为失败
+          error_count: 5
+          # 轮询间隔（秒）
+          polling_interval: 5
+          # 最大轮询次数
+          maximum_corner_runtime: 30
+          # 部署超时时间（分钟）
+          timeout: 15
