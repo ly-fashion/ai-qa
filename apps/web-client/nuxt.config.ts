@@ -15,6 +15,15 @@ export default defineNuxtConfig({
   // 静态站点部署到子路径（GitHub Pages）
   app: {
     baseURL: '/ai-qa/',
+    head: {
+      title: 'AI QA 智能问答平台',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'AI驱动的智能问答平台' },
+      ],
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/ai-qa/favicon.ico' }],
+    },
   },
   // 2. PostCSS 配置
   postcss: {
