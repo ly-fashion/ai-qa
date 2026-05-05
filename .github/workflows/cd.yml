@@ -129,11 +129,12 @@ jobs:
           name: github-pages
 
       # 12. 部署到 GitHub Pages
+      # 注意：如果 GitHub Pages 超时，可以注释掉这个步骤，artifact 仍然会上传
+      # 你可以在 Actions 页面手动完成部署
       - name: Deploy to GitHub Pages
+        if: false # 暂时跳过，设置为 false
         id: deploy
         uses: actions/deploy-pages@v4
         with:
-          # 指定要部署的 artifact 名称
           artifact_name: github-pages
-          # 部署超时时间（分钟）
           timeout: 15
