@@ -84,25 +84,20 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # 7. 构建所有应用（前后端都构建）
+      # 注意：web-client 使用 nuxt generate 生成静态文件，以便部署到 GitHub Pages
       - name: Build applications
         run: |
           pnpm build:packages
-          pnpm build:apps
+          pnpm --filter @ai-qa-apps/web-client generate
 
-      # 8. 验证构建输出是否存在
+      # 8. 验证构建产物
+      # 注意：只验证 web-client，因为 api-server 不需要部署到 GitHub Pages
       - name: Verify build output
         run: |
-          echo "检查 API Server 构建产物..."
-          if [ -d "apps/api-server/dist" ]; then
-            echo "✅ API Server 构建成功"
-          else
-            echo "❌ API Server 构建失败"
-            exit 1
-          fi
-
-          echo "检查 Web Client 构建产物..."
-          if [ -d "apps/web-client/.output" ]; then
+          echo "检查 Web Client 静态构建产物..."
+          if [ -d "apps/web-client/dist" ]; then
             echo "✅ Web Client 构建成功"
+            ls -la apps/web-client/dist/
           else
             echo "❌ Web Client 构建失败"
             exit 1
@@ -115,12 +110,12 @@ jobs:
       # 10. 验证 Web Client 输出目录结构
       - name: Validate the Nuxt output exists
         run: |
-          if [ -d "apps/web-client/.output/public" ]; then
+          if [ -d "apps/web-client/dist" ]; then
             echo "✅ Nuxt 静态输出目录存在"
-            ls -la apps/web-client/.output/public/
+            ls -la apps/web-client/dist/
           else
             echo "⚠️  Nuxt 静态输出目录不存在，尝试检查其他位置..."
-            ls -la apps/web-client/.output/
+            ls -la apps/web-client/
           fi
 
       # 11. 上传构建产物作为 GitHub Pages artifact
@@ -128,7 +123,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # 上传 Web Client 的 Nuxt 静态输出目录
-          path: 'apps/web-client/.output/public'
+          path: 'apps/web-client/dist'
           # artifact 的名称，用于后续部署步骤引用
           name: github-pages
 
