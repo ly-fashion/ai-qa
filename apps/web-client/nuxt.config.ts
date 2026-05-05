@@ -12,6 +12,10 @@ export default defineNuxtConfig({
     // 引入 Ant Design Vue 的样式
     'ant-design-vue/dist/reset.css',
   ],
+  // 静态站点部署到子路径（GitHub Pages）
+  app: {
+    baseURL: '/ai-qa/',
+  },
   // 2. PostCSS 配置
   postcss: {
     plugins: {
