@@ -95,9 +95,9 @@ jobs:
       - name: Verify build output
         run: |
           echo "检查 Web Client 静态构建产物..."
-          if [ -d "apps/web-client/dist" ]; then
+          if [ -d "apps/web-client/.output/public" ]; then
             echo "✅ Web Client 构建成功"
-            ls -la apps/web-client/dist/
+            ls -la apps/web-client/.output/public/
           else
             echo "❌ Web Client 构建失败"
             exit 1
@@ -110,9 +110,9 @@ jobs:
       # 10. 验证 Web Client 输出目录结构
       - name: Validate the Nuxt output exists
         run: |
-          if [ -d "apps/web-client/dist" ]; then
+          if [ -d "apps/web-client/.output/public" ]; then
             echo "✅ Nuxt 静态输出目录存在"
-            ls -la apps/web-client/dist/
+            ls -la apps/web-client/.output/public/
           else
             echo "⚠️  Nuxt 静态输出目录不存在，尝试检查其他位置..."
             ls -la apps/web-client/
@@ -123,7 +123,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # 上传 Web Client 的 Nuxt 静态输出目录
-          path: 'apps/web-client/dist'
+          path: 'apps/web-client/.output/public'
           # artifact 的名称，用于后续部署步骤引用
           name: github-pages
 
