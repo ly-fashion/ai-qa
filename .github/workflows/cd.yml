@@ -132,7 +132,7 @@ jobs:
       # 注意：如果 GitHub Pages 超时，可以注释掉这个步骤，artifact 仍然会上传
       # 你可以在 Actions 页面手动完成部署
       - name: Deploy to GitHub Pages
-        if: false # 暂时跳过，设置为 false
+        if: success() # 仅在构建成功时部署
         id: deploy
         uses: actions/deploy-pages@v4
         with:
