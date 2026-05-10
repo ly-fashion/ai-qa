@@ -1,0 +1,21 @@
+{
+  "name": "@ai-qa-apps/mcp-server",
+  "version": "1.0.0",
+  "description": "一个mcp server示例",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "koa": "^3.2.0",
+    "openai": "^6.36.0",
+    "zod": "^4.4.3"
+  }
+}

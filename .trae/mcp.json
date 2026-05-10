@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mock-generate-server": {
+      "command": "node",
+      "args": ["index.js"],
+      "cwd": "C:/Users/LING YONG/Desktop/hall/ai-qa/apps/mcp-server/dist/src/mock-generate-server"
+    }
+  }
+}
