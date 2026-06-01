@@ -45,6 +45,7 @@
     "isolatedModules",
     "jest",
     "jsx",
+    "lemore",
     "lucide",
     "modelcontextprotocol",
     "mysql",

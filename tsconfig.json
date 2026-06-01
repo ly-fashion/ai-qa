@@ -13,7 +13,6 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2022",
     "sourceMap": true,
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -23,17 +22,17 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@root/*": ["./*"],
-      "@/*": ["apps/api-server/src/*"],
-      "@app/*": ["apps/api-server/src/*"],
-      "@config/*": ["apps/api-server/src/config/*"],
-      "@modules/*": ["apps/api-server/src/modules/*"],
-      "@common/*": ["apps/api-server/src/common/*"],
-      "@database/*": ["packages/database/src/*"],
-      "@types/*": ["packages/types/src/*"],
-      "@utils/*": ["packages/utils/src/*"],
-      "@ui/*": ["packages/ui/src/*"],
-      "@api-server/*": ["apps/api-server/src/*"],
-      "@web-client/*": ["apps/web-client/*"]
+      "@/*": ["./apps/api-server/src/*"],
+      "@app/*": ["./apps/api-server/src/*"],
+      "@config/*": ["./apps/api-server/src/config/*"],
+      "@modules/*": ["./apps/api-server/src/modules/*"],
+      "@common/*": ["./apps/api-server/src/common/*"],
+      "@database/*": ["./packages/database/src/*"],
+      "@types/*": ["./packages/types/src/*"],
+      "@utils/*": ["./packages/utils/src/*"],
+      "@ui/*": ["./packages/ui/src/*"],
+      "@api-server/*": ["./apps/api-server/src/*"],
+      "@web-client/*": ["./apps/web-client/*"]
     }
   },
   "exclude": ["node_modules", "dist", "build"]
